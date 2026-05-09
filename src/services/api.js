@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // axios instance → tüm isteklerde base URL otomatik eklenir
 const api = axios.create({
-    baseURL: 'http//localhost:5071/api',
+    baseURL: 'http://localhost:5071/api',
 });
 
 // Her istekte token varsa Authorization header'ına ekle

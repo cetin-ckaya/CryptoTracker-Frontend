@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
+
 export default function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -11,7 +15,7 @@ export default function Register() {
 
         try{
             //Backend e kayıt isteği at
-            await api.post('/authot/register', {username, email, password});
+            await api.post('/auth/register', {username, email, password});
 
             //Kayıt başarılı -> login sayfasına yönlendir
             navigate('/');
@@ -20,24 +24,24 @@ export default function Register() {
         }
     };
     return(
-        <div style={style.container}>
-            <div style={style.card}>
-                <h1 style={style.title}>Crypto <span style={style.accent}>Tracker</span></h1>
-                <p style={style.subtitle}>Hesap oluştur</p>
+        <div style={styles.container}>
+            <div style={styles.card}>
+                <h1 style={styles.title}>Crypto <span style={styles.accent}>Tracker</span></h1>
+                <p style={styles.subtitle}>Hesap oluştur</p>
 
-                <form onSubmit={handleSubmit} style={style.form}>
-                    <input style={style.input} type="text" placeholder="Kullancı adı" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                    <input style={style.input} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                    <input style={style.input} type="password" placeholder="Şifre" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <form onSubmit={handleSubmit} style={styles.form}>
+                    <input style={styles.input} type="text" placeholder="Kullancı adı" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                    <input style={styles.input} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input style={styles.input} type="password" placeholder="Şifre" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
                     {error && <p style={styles.error}>{error}</p>}
 
-                    <button style={style.button} type="submit">Kayıt Ol</button>
+                    <button style={styles.button} type="submit">Kayıt Ol</button>
                 </form>
 
-                <p style={style.login}>
+                <p style={styles.login}>
                     Hesabın Var mı?{''}
-                    <span style={style.link} onClick={() => navigate('/')}>Giriş Yap</span>
+                    <span style={styles.link} onClick={() => navigate('/')}>Giriş Yap</span>
                 </p>
             </div>
         </div>
