@@ -15,4 +15,33 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+// 🔥 YENİ: Response interceptor - Hataları yakala
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response) {
+            // Backend'den gelen hata
+            const { status, data } = error.response;
+            
+            if (status === 401) {
+                localStorage.removeItem('token');
+                window.location.href = '/';
+            }
+            
+            // Hata mesajını göster
+            if (data?.message) {
+                alert(data.message);
+            }
+        } else if (error.request) {
+            // İstek gönderildi ama cevap gelmedi
+            alert("Sunucuya bağlanılamadı. Lütfen backend'in çalıştığından emin olun.");
+        } else {
+            // Başka hata
+            alert('Bir hata oluştu: ' + error.message);
+        }
+        
+        return Promise.reject(error);
+    }
+);
+
 export default api;
