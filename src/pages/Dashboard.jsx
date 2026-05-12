@@ -44,7 +44,11 @@ export default function Dashboard() {
       {/* ÜST BAR */}
       <div style={styles.navbar}>
         <h1 style={styles.logo}>Crypto<span style={styles.accent}>Tracker</span></h1>
-        <button style={styles.logoutBtn} onClick={handleLogout}>Çıkış Yap</button>
+        <div style={{display: 'flex', alignItems: 'center', gap: '24px'}}>
+          <span style={{color: '#6366f1', fontWeight: '600', fontSize: '14px'}}>Dashboard</span>
+          <span style={{color: '#94a3b8', cursor: 'pointer', fontWeight: '600', fontSize: '14px'}} onClick={() => navigate('/transactions')}>İşlemler</span>
+          <button style={styles.logoutBtn} onClick={handleLogout}>Çıkış Yap</button>
+        </div>
       </div>
 
       <div style={styles.content}>
@@ -88,6 +92,7 @@ export default function Dashboard() {
             <thead>
               <tr>
                 <th style={styles.th}>Coin</th>
+                <th style={styles.th}>Anlık Fiyat</th> {/* 🔥 YENİ */}
                 <th style={styles.th}>Miktar</th>
                 <th style={styles.th}>Ort. Maliyet</th>
                 <th style={styles.th}>Güncel Değer</th>
@@ -108,6 +113,13 @@ export default function Dashboard() {
                   <td style={styles.td}>
                     <span style={styles.coinBadge}>{coin.coinSymbol}</span>
                   </td>
+                   <td style={styles.td}>
+                    {/* 🔥 YENİ: Anlık Fiyat */}
+                    <span style={{ color: '#6366f1', fontWeight: '600' }}>
+                        ${coin.currentPrice?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </span>
+                  </td>
+
                   <td style={styles.td}>{coin.totalAmount}</td>
                   <td style={styles.td}>${coin.averageBuyPrice?.toFixed(2)}</td>
                   <td style={styles.td}>${coin.currentValue?.toFixed(2)}</td>
